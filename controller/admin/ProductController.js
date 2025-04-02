@@ -166,10 +166,7 @@ module.exports.create = async (req, res) => {
 // Thêm sản phẩm Post
 module.exports.createPost = async (req, res) => {
   // Kiểm tra nếu không có file được tải lên
-  if (!req.file) {
-    req.flash("error", "Vui lòng tải lên một hình ảnh.");
-    return res.redirect("back");
-  }
+
 
   // Chuyển đổi giá trị số
   req.body.price = parseInt(req.body.price) || 0;
@@ -182,8 +179,6 @@ module.exports.createPost = async (req, res) => {
     req.body.position = parseInt(req.body.position) || 0;
   }
 
-  // Kiểm tra nếu `req.file` tồn tại trước khi gán đường dẫn
-  req.body.thumbnail = req.file ? `/uploads/${req.file.filename}` : "";
 
   // Tạo sản phẩm mới
   try {

@@ -1,24 +1,21 @@
 const express = require("express");
 const routes = express.Router();
 const multer = require("multer");
-const storageMulter = require("../../helper/storange");
-const upload = multer({ storage: storageMulter() });
+const uploadCloud = require("../../middlewares/admin/uploadCloudMiddleware");
 const productController = require("../../controller/admin/ProductController");
 const { createPost } = require("../../validates/admin/productValdate");
+const validate = require("../../validates/admin/productValdate");
+const upload = multer();
 
 routes.get("/", productController.index);
 routes.patch("/change-status/:status/:id", productController.chageStatus);
 routes.patch("/change-multi", productController.changeMulti);
 routes.delete("/delete/:id", productController.deleteItem);
 routes.get("/create", productController.create);
-const validate = require("../../validates/admin/productValdate");
 routes.post(
   "/create",
   upload.single("thumbnail"),
-  (req, res, next) => {
-    console.log("File Multer nhận được:", req.file);
-    next();
-  },
+  uploadCloud.upload,
   validate.createPost,
   productController.createPost
 );
