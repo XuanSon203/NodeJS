@@ -1,0 +1,25 @@
+extends ../../layout/default.pug
+
+block content
+  h2 Dashboard
+  p Chào mừng bạn đến với hệ thống quản trị!
+  
+  .row
+    .col-md-4
+      .card.shadow-sm
+        .card-body
+          h5.card-title Tổng Sản Phẩm
+          p.card-text 100 sản phẩm
+          a.btn.btn-primary(href="/admin/products") Xem chi tiết
+    .col-md-4
+      .card.shadow-sm
+        .card-body
+          h5.card-title Tổng Đơn Hàng
+          p.card-text 50 đơn hàng
+          a.btn.btn-primary(href="/admin/orders") Xem chi tiết
+    .col-md-4
+      .card.shadow-sm
+        .card-body
+          h5.card-title Tổng Người Dùng
+          p.card-text 200 người dùng
+          a.btn.btn-primary(href="/admin/users") Xem chi tiết

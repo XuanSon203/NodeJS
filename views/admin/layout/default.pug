@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title Quản Trị
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/admin/css/style.css")
+  body
+    .wrapper.d-flex
+      // Sidebar
+      nav.sidebar.bg-dark
+        ul.list-unstyled
+          li
+            a.text-white(href=`/admin/dashboard`) Dashboard
+          li
+            a.text-white(href="/admin/products") Quản Lý Sản Phẩm
+          li
+            a.text-white(href="/admin/orders") Quản Lý Đơn Hàng
+          li
+            a.text-white(href="/admin/users") Quản Lý Người Dùng
+      
+      // Main Content
+      .main-content
+        header.bg-light.p-3
+          h5 Chào mừng đến với trang Quản Trị!
+        
+        .content.p-4
+          block content
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js") // ✅ Đã sửa từ "boostrap" thành "Bootstrap"
+    script(src="/admin/js/script.js")

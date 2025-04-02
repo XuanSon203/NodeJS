@@ -1,0 +1,46 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block content
+  +alert-error("5000")
+  +alert-success("5000")
+  
+  h2.text-center.mb-4 Chỉnh Sửa Sản Phẩm
+
+  .container.p-5
+    //- Card product details
+    .card
+      .card-header.bg-primary.text-white
+        h4 Thông tin sản phẩm
+
+      .card-body
+        .row
+          .col-md-6
+            .mb-3
+              label.form-label(for="title") Tiêu đề sản phẩm:
+              p.form-control-static #{product.title}
+          
+          .col-md-6
+            .mb-3
+              label.form-label(for="price") Giá sản phẩm:
+              p.form-control-static #{product.price.toLocaleString()} VND
+
+        .mb-3
+          label.form-label(for="thumbnail") Ảnh sản phẩm:
+          img(src=product.thumbnail, alt="Ảnh sản phẩm", class="img-fluid rounded" style="max-width: 150px;")
+
+        .mb-3
+          label.form-label(for="status") Trạng thái:
+          p.form-control-static
+            if product.status == 'Active'
+              span.badge.bg-success Đang hoạt động
+            else
+              span.badge.bg-danger Không hoạt động
+
+        .mb-3
+          label.form-label(for="position") Vị trí:
+          p.form-control-static #{product.position}
+
+    //- Edit product button
+    .d-flex.justify-content-end.mt-3
+      a.btn.btn-warning(href=`${prefixAdmin}/products/edit/${product._id}`) Chỉnh sửa sản phẩm

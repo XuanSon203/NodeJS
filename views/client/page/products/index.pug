@@ -1,0 +1,15 @@
+extends ../layout/default.pug
+
+block main
+    .container.mt-5
+        h1.text-center.mb-4 Danh Sách Sản Phẩm
+
+        .row
+            each product in products
+                .col-md-4.mb-4
+                    .card.shadow-sm
+                        img.card-img-top(src=product.thumbnail, alt=product.title, style="height: 200px; object-fit: cover;")
+                        .card-body
+                            h5.card-title= product.title
+                            p.card-text Giá: #{product.price} VNĐ
+                            a.btn.btn-primary(href=`/products/${product.slug}`) Xem Chi Tiết

@@ -1,0 +1,29 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block content
+  +alert-error("5000")
+  h2.text-center.mb-4 Thêm Sản Phẩm
+
+  form(action=`${prefixAdmin}/products/create` method="POST" class="container p-4 border rounded shadow-sm" enctype="multipart/form-data")
+    .mb-3
+      label.form-label(for="title") Tiêu đề sản phẩm:
+      input.form-control(type="text" name="title" required placeholder="Nhập tiêu đề sản phẩm")
+
+    .mb-3
+      label.form-label(for="price") Giá sản phẩm:
+      input.form-control(type="number" name="price" required min="0" step="0.01" placeholder="Nhập giá")
+    .mb-3
+      div( class="form-group" upload-image)
+        label.form-label(for="thumbnail") Ảnh sản phẩm (URL):
+        input.form-control(type="file" name="thumbnail" accept="image/*" upload-image-input)
+        img(src="", alt="" upload-image-preview style=" width: 150px; margin-top: 10px;") 
+        button.btn.btn-danger.mt-2(type="button" upload-image-remove) Xóa ảnh
+
+
+    .mb-3
+      label.form-label(for="position") Vị trí:
+      input.form-control(type="number" name="position"  placeholder=" Tự động tăng " )
+
+    .d-flex.justify-content-end
+      button.btn.btn-primary(type="submit") Thêm sản phẩm
