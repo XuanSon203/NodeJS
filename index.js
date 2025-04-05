@@ -1,14 +1,15 @@
 const express = require("express");
 var methodOverride = require("method-override");
 const app = express();
+const path = require("path");
 require("dotenv").config();
 const dataBase = require("./config/connectDb");
 const router = require("./router/client/index");
 const routerAdmin = require("./router/admin/index");
 const system = require("./config/system.js");
 const bodyParser = require("body-parser");
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const flash = require("express-flash");
 
 // Kết nối cơ sở dữ liệu
@@ -27,17 +28,20 @@ app.use(methodOverride("_method"));
 
 // Sử dụng thư mục public để chứa các file tĩnh (CSS, JS, ảnh)
 app.use(express.static(`${__dirname}/public`));
-
+// Tinymce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 // Cấu hình `cookie-parser`
 app.use(cookieParser());
 
-// Cấu hình `express-session`
-app.use(session({
-  secret: "DSSHSHDHDH", // Chuỗi bí mật để mã hóa session
-  resave: false, // Không lưu lại session nếu không thay đổi
-  saveUninitialized: true, // Lưu lại session mới dù chưa có dữ liệu
-  cookie: { maxAge: 60000 } // Thời gian tồn tại của session (đơn vị: ms)
-}));
+
+app.use(
+  session({
+    secret: "DSSHSHDHDH",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 },
+  })
+);
 
 // Sử dụng flash cho thông báo tạm thời
 app.use(flash());

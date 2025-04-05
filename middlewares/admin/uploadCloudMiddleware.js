@@ -27,14 +27,14 @@ module.exports.upload = async (req, res, next) => {
       };
 
       let result = await streamUpload(req);
-      req.body.thumbnail = result.secure_url;
+      req.body[req.file.fieldname] = result.secure_url;
     } else {
       // Không có ảnh được tải lên, gán giá trị mặc định
-      req.body.thumbnail = "URL_ANH_PLACEHOLDER";
+      req.body['thumbnail'] = "URL_ANH_PLACEHOLDER";
     }
     next();
   } catch (error) {
-    // Xử lý lỗi tải lên
+ 
     console.error("Error uploading image:", error);
     return res.status(500).send("Error uploading image");
   }

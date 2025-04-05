@@ -28,7 +28,9 @@ block content
         .mb-3
           label.form-label(for="thumbnail") Ảnh sản phẩm:
           img(src=product.thumbnail, alt="Ảnh sản phẩm", class="img-fluid rounded" style="max-width: 150px;")
-
+        .mb-3
+          label.form-label(for="description") Mô tả :
+          textarea.form-control.textarea-mce(name="description") #{product.description}
         .mb-3
           label.form-label(for="status") Trạng thái:
           p.form-control-static

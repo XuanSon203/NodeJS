@@ -1,0 +1,20 @@
+mixin table-tree(productsCategory, level = 1)
+  each category,index in productsCategory
+    - const prefix = Array(level + 1).join("-- ")
+    tr
+      td #{category.index}
+      td #{prefix}#{category.title}
+      td
+        if category.thumbnail
+          img(src=category.thumbnail, style="width: 50px; height: 50px;")
+        else
+          span Không có ảnh
+      td #{category.description}
+      td
+        input(type="number", value=category.position, min="1", name="position")
+      td
+        a.btn.btn-warning.btn-sm(href=`${prefixAdmin}/products-category/edit/${category.id}`) Sửa
+        a.btn.btn-danger.btn-sm(href=`${prefixAdmin}/products-category/delete/${category.id}` onclick="return confirm('Bạn có chắc muốn xóa?')") Xóa
+ 
+    if category.children && category.children.length > 0
+      +table-tree(category.children, level + 1)

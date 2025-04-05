@@ -27,9 +27,16 @@ module.exports.index = async (req, res) => {
     req.query,
     countProducts
   );
+  // Sort
+  let sort = {};
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue;
+  } else {
+    sort.position = "desc";
+  }
   // End Pagination
   const products = await Product.find(find)
-    .sort({ position: "desc" })
+    .sort(sort)
     .limit(objectPagination.limitItem) // Giới hạn số lượng sản phẩm hiển thị trên 1 trang
     .skip(objectPagination.skip); // Bỏ qua các sản phẩm trang trước và tiến tới trang tiếp theo
 
@@ -167,7 +174,6 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   // Kiểm tra nếu không có file được tải lên
 
-
   // Chuyển đổi giá trị số
   req.body.price = parseInt(req.body.price) || 0;
 
@@ -178,7 +184,6 @@ module.exports.createPost = async (req, res) => {
   } else {
     req.body.position = parseInt(req.body.position) || 0;
   }
-
 
   // Tạo sản phẩm mới
   try {
@@ -216,15 +221,8 @@ module.exports.editPatch = async (req, res) => {
     return res.redirect("back");
   }
 
-  // Kiểm tra nếu có file tải lên, nếu không thì giữ nguyên ảnh cũ
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
-  } else if (!req.body.thumbnail) {
-    req.body.thumbnail = "";
-  }
-
   const id = req.params.id;
-
+  console.log(req.body);
   try {
     const result = await Product.updateOne({ _id: id }, req.body);
 

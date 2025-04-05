@@ -19,8 +19,9 @@ block content
         input.form-control(type="file" name="thumbnail" accept="image/*" upload-image-input)
         img(src="", alt="" upload-image-preview style=" width: 150px; margin-top: 10px;") 
         button.btn.btn-danger.mt-2(type="button" upload-image-remove) Xóa ảnh
-
-
+    .mb-3
+      label.form-label(for="description") Mô tả :
+      textarea.form-control.textarea-mce(name="description")
     .mb-3
       label.form-label(for="position") Vị trí:
       input.form-control(type="number" name="position"  placeholder=" Tự động tăng " )

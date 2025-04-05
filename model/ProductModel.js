@@ -12,6 +12,7 @@ const productSchema = new Schema(
     deleted: { type: Boolean, default: false },
     deletedAt: Date,
     position: Number,
+    description:String,
     slug: { type: String, slug: "title", unique: true },
   },
   {

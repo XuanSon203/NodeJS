@@ -14,7 +14,7 @@ html
           li
             a.text-white(href="/admin/products") Quản Lý Sản Phẩm
           li
-            a.text-white(href="/admin/orders") Quản Lý Đơn Hàng
+            a.text-white(href="/admin/products-category") Quản Lý Danh Mục Sản Phẩm
           li
             a.text-white(href="/admin/users") Quản Lý Người Dùng
       
@@ -27,4 +27,8 @@ html
           block content
 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js") // ✅ Đã sửa từ "boostrap" thành "Bootstrap"
-    script(src="/admin/js/script.js")
+    //- Tinymce
+    script(src="/tinymce/tinymce.min.js")
+    script(src="/admin/js/tinymceConfig.js")
+    
+    script(src="/admin/js/script.js" type="module")

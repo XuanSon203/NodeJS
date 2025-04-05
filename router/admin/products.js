@@ -22,11 +22,7 @@ routes.post(
 routes.get("/edit/:id", productController.edit);
 routes.patch(
   "/edit/:id",
-  upload.single("thumbnail"),
-  (req, res, next) => {
-    console.log("File Multer nhận được:", req.file);
-    next();
-  },
+  uploadCloud.upload,
   validate.createPost,
   productController.editPatch
 );
