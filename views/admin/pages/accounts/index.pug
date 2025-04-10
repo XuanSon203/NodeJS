@@ -1,0 +1,44 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block content
+  +alert-error("5000")
+  h2.text-center.mb-4 Danh sách Accounts
+
+  a.btn.btn-primary.mb-3(href=`${prefixAdmin}/accounts/create`)
+    i.bi.bi-plus-circle.me-1
+    | Thêm Account
+  table.table.table-bordered.table-striped
+    thead.table-dark
+      tr
+        th STT
+        th Họ tên 
+        th Email
+        th Số điện thoại
+        th Quyền
+        th Trạng thái
+        th Hành động
+    tbody
+      each item, index in records
+        tr
+          td #{index + 1}
+          td #{item.fullName}
+          td #{item.email}
+          td #{item.phone}
+          td #{item.role.title || 'Chưa phân quyền'}
+
+          td 
+            if item.status == 'active'
+              span.badge.bg-success Active
+            else
+              span.badge.bg-secondary Inactive
+          td
+            a.btn.btn-sm.btn-info.text-white.me-1(href=`${prefixAdmin}/accounts/view/${item._id}`)
+              i.bi.bi-eye
+              |  Xem
+            a.btn.btn-sm.btn-warning.text-white.me-1(href=`${prefixAdmin}/accounts/edit/${item._id}`)
+              i.bi.bi-pencil-square
+              |  Sửa
+            a.btn.btn-sm.btn-danger(href=`${prefixAdmin}/accounts/delete/${item._id}` onclick="return confirm('Bạn có chắc chắn muốn xóa?')")
+              i.bi.bi-trash
+              |  Xóa

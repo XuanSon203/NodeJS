@@ -1,5 +1,6 @@
 extends ../../layout/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 
 block content
   +alert-error("5000")
@@ -11,7 +12,12 @@ block content
     .mb-3
       label.form-label(for="title") Tiêu đề sản phẩm:
       input.form-control(type="text" name="title" required placeholder="Nhập tiêu đề sản phẩm" value=product.title)
-
+    .mb-3
+      label.form-label(for="product__category_id") Chọn danh mục cha
+      select.form-select(name="product__category_id", id="product__category_id")
+        option(value="") -- Chọn danh mục cha --
+        if categories
+          +select-tree(categories,1,product.product__category_id)
     .mb-3
       label.form-label(for="price") Giá sản phẩm:
       input.form-control(type="number" name="price" required min="0" step="0.01" placeholder="Nhập giá" value=product.price)

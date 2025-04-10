@@ -16,13 +16,18 @@ html
           li
             a.text-white(href="/admin/products-category") Quản Lý Danh Mục Sản Phẩm
           li
-            a.text-white(href="/admin/users") Quản Lý Người Dùng
+            a.text-white(href="/admin/roles") Quản Lý Nhóm Quyền
+          li
+            a.text-white(href="/admin/roles/permissions")  Phân Quyền
+          li
+            a.text-white(href="/admin/accounts")  Danh Sách Tài Khoản
+
       
       // Main Content
       .main-content
-        header.bg-light.p-3
-          h5 Chào mừng đến với trang Quản Trị!
-        
+        header.bg-light.p-3.d-flex.justify-content-between
+          h5 Chào mừng đến với trang Quản Trị
+          a.btn.btn-danger(href=`${prefixAdmin}/auth/logout`) Đăng xuất
         .content.p-4
           block content
 

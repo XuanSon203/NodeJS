@@ -3,10 +3,8 @@ const routes = express.Router();
 const multer = require("multer");
 const uploadCloud = require("../../middlewares/admin/uploadCloudMiddleware");
 const productController = require("../../controller/admin/ProductController");
-const { createPost } = require("../../validates/admin/productValdate");
 const validate = require("../../validates/admin/productValdate");
 const upload = multer();
-
 routes.get("/", productController.index);
 routes.patch("/change-status/:status/:id", productController.chageStatus);
 routes.patch("/change-multi", productController.changeMulti);
@@ -22,6 +20,7 @@ routes.post(
 routes.get("/edit/:id", productController.edit);
 routes.patch(
   "/edit/:id",
+  upload.single("thumbnail"),
   uploadCloud.upload,
   validate.createPost,
   productController.editPatch

@@ -15,5 +15,16 @@ routes.post(
   validate.createPost,
   productCategory.createPost
 );
+routes.get("/edit/:id", productCategory.edit);
+routes.patch(
+  "/edit/:id",
+  upload.single("thumbnail"),
+  uploadCloud.upload,
+  validate.createPost,
+  productCategory.editPatch
+);
+routes.get("/detail/:id", productCategory.detail);
+
+routes.delete("/delete/:id", productCategory.delete);
 
 module.exports = routes;

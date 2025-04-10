@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema(
   {
     title: { type: String, required: true },
+    product__category_id:{type:String,default:""},
     price: { type: Number, required: true },
     thumbnail: { type: String, required: true },
     status: { type: String, default: "Active" },

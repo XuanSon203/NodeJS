@@ -42,7 +42,6 @@ module.exports.create = async (req, res) => {
 
     const categories = await ProductCategory.find(find);
     const categoryTree = createTree(categories);
-    console.log(categoryTree);
 
     // Render view và truyền cả danh sách gốc lẫn cây phân cấp
     res.render("admin/pages/product-category/create", {
@@ -72,5 +71,63 @@ module.exports.createPost = async (req, res) => {
     console.error(error);
     req.flash("error", "Đã xảy ra lỗi khi thêm sản phẩm.");
     res.redirect("back");
+  }
+};
+// Get Edit
+module.exports.edit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let find = {
+      _id: id,
+      deleted: false,
+    };
+    const data = await ProductCategory.findOne(find);
+    const productsCategory = await ProductCategory.find({ deleted: false });
+    const categoryTree = createTreeHelper.createTree(productsCategory);
+    res.render("admin/pages/product-category/edit", {
+      data,
+      categories: categoryTree,
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  }
+};
+// Patch Edit
+module.exports.editPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    req.body.position = parseInt(req.body.position);
+    await ProductCategory.updateOne({ _id: id }, req.body);
+    res.redirect("back");
+  } catch (error) {
+    console.log(error);
+    res.redirect("back");
+  }
+};
+// Get Detail
+module.exports.detail = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let find = {
+      _id: id,
+      deleted: false,
+    };
+    const productsCategory = await ProductCategory.find({ deleted: false });
+    const categoryTree = createTreeHelper.createTree(productsCategory);
+    const productCategory = await ProductCategory.findOne(find);
+    res.render("admin/pages/product-category/detail", {
+      data: productCategory,
+      categories: categoryTree,
+    });
+  } catch (error) {}
+};
+// Delete
+module.exports.delete = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await ProductCategory.updateOne({ _id: id }, { deleted: true });
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
   }
 };

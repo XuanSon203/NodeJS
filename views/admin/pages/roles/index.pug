@@ -1,0 +1,41 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block content
+  +alert-error("5000")
+  h2.text-center.mb-4 Danh sách vai trò
+  a.btn.btn-primary(href=`${prefixAdmin}/roles/create`)
+      i.bi.bi-plus-circle.me-1
+      | Thêm Sản Phẩm
+  table.table.table-bordered.table-striped
+    thead
+      tr
+        th STT
+        th Tên vai trò
+        th Mô tả
+        th Quyền hạn
+        th Ngày tạo
+        th Hành động
+    tbody
+      if roles.length
+        each role, index in roles
+          tr
+            td #{index + 1}
+            td #{role.title}
+            td #{role.description || 'Không có'}
+            td 
+              if role.permissions && role.permissions.length
+                ul
+                  each permission in role.permissions
+                    li #{permission}
+              else
+                | Không có quyền
+            td #{role.createdAt.toLocaleString()}
+            td
+              a.btn.btn-sm.btn-primary(href=`${prefixAdmin}/roles/detail/${role._id}`) Chi tiết
+              a.btn.btn-sm.btn-warning(href=`${prefixAdmin}/roles/edit/${role._id}`) Sửa
+              form(method="POST", action=`${prefixAdmin}/roles/delete/${role._id}?_method=DELETE`, style="display:inline-block")
+                button.btn.btn-sm.btn-danger(type="submit" onclick="return confirm('Bạn có chắc muốn xóa?')") Xóa
+      else
+        tr
+          td(colspan="6").text-center Không có vai trò nào

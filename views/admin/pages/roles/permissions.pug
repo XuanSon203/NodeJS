@@ -1,0 +1,58 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+block content
+  +alert-success(5000)
+  +alert-error(5000)
+  
+  h1 Phân Quyền
+  if(records)
+    div(data-records=records)
+    table.table.table-bordered(table-permissions)
+      button.btn.btn-primary.m-3(type="submit" btn-submit)  Cập nhật
+      thead
+        tr
+          th Tính năng
+          each item in records
+            th #{item.title}
+
+      tbody
+        tr.d-none(data-name="id" )
+          td
+            each item in records
+              td
+                input(type="text" value=item.id )
+        tr
+          td Danh mục sản phẩm
+          td(colspan="4")
+
+        tr(data-name="products-category_view")
+          td Xem
+          each item in records
+            td
+              input(type="checkbox",)
+         
+        tr(data-name="products-category_add")
+          td Thêm mới
+           each item in records
+            td
+              input(type="checkbox",)
+
+        tr(data-name="products-category_edit")
+          td Chỉnh sửa
+           each item in records
+            td
+              input(type="checkbox",)
+
+        tr(data-name="products-category_delete")
+          td Xóa
+          each item in records
+            td
+              input(type="checkbox",)
+  else
+    a(href="/admin/roles/create") Tạo mới
+  form(method="POST",
+    id='form-change-permissions'
+   action=`${prefixAdmin}/roles/permissions?_method=PATCH`)
+   div()
+    input(type="text" name="permissions" hidden)
+  script(src="/admin/js/roles.js") 

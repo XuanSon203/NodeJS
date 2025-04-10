@@ -1,7 +1,9 @@
 const Product = require("../../model/ProductModel");
+const ProductCategory = require("../../model/ProductsCategory_Model");
 const searchHelper = require("../../helper/seach");
 const paginationHelper = require("../../helper/pagination");
 const systemConfig = require("../../config/system");
+const createTreeHelper = require("../../helper/create-tree");
 
 module.exports.index = async (req, res) => {
   let find = {
@@ -168,7 +170,11 @@ module.exports.deleteItem = async (req, res) => {
 };
 // Thêm sản phẩm GET
 module.exports.create = async (req, res) => {
-  res.render("admin/pages/products/create.pug");
+  const productsCategory = await ProductCategory.find({ deleted: false });
+  const categoryTree = createTreeHelper.createTree(productsCategory);
+  res.render("admin/pages/products/create.pug", {
+    categories: categoryTree,
+  });
 };
 // Thêm sản phẩm Post
 module.exports.createPost = async (req, res) => {
@@ -204,9 +210,11 @@ module.exports.edit = async (req, res) => {
     _id: id,
   };
   const product = await Product.findOne(find);
-  console.log(product);
+  const productsCategory = await ProductCategory.find({ deleted: false });
+  const categoryTree = createTreeHelper.createTree(productsCategory);
   res.render("admin/pages/products/edit.pug", {
     product,
+    categories: categoryTree,
   });
 };
 // Sửa sản phẩm Patch
@@ -246,8 +254,11 @@ module.exports.detail = async (req, res) => {
     _id: id,
   };
   const product = await Product.findOne(find);
+  const productsCategory = await ProductCategory.find({ deleted: false });
+  const categoryTree = createTreeHelper.createTree(productsCategory);
   console.log(product);
   res.render("admin/pages/products/detail.pug", {
     product,
+    categories: categoryTree,
   });
 };

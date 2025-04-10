@@ -1,0 +1,38 @@
+extends ../../layout/default.pug
+
+block content
+  h2.text-center.mb-4 Chi tiết vai trò
+
+  .container.p-4.border.rounded.shadow-sm
+    dl.row
+      dt.col-sm-3 Tên vai trò:
+      dd.col-sm-9 #{data.title}
+
+      dt.col-sm-3 Mô tả:
+      dd.col-sm-9 #{data.description || 'Không có mô tả'}
+
+      dt.col-sm-3 Danh sách quyền:
+      dd.col-sm-9
+        if data.permissions && data.permissions.length
+          ul
+            each p in data.permissions
+              li= p
+        else
+          | Không có quyền
+
+      dt.col-sm-3 Trạng thái:
+      dd.col-sm-9
+        if data.deleted
+          span.badge.bg-danger Đã xóa
+        else
+          span.badge.bg-success Đang hoạt động
+
+      dt.col-sm-3 Ngày tạo:
+      dd.col-sm-9 #{data.createdAt.toLocaleString()}
+
+      dt.col-sm-3 Ngày cập nhật:
+      dd.col-sm-9 #{data.updatedAt.toLocaleString()}
+
+    .mt-4
+      a.btn.btn-primary(href=`${prefixAdmin}/roles/edit/${data._id}`) Chỉnh sửa
+      a.btn.btn-secondary(href=`${prefixAdmin}/roles`) Quay lại danh sách

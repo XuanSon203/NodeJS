@@ -1,6 +1,6 @@
 extends ../../layout/default.pug
 include ../../mixins/alert.pug
-
+include ../../mixins/select-tree.pug
 block content
   +alert-error("5000")
   h2.text-center.mb-4 Thêm Sản Phẩm
@@ -9,7 +9,12 @@ block content
     .mb-3
       label.form-label(for="title") Tiêu đề sản phẩm:
       input.form-control(type="text" name="title" required placeholder="Nhập tiêu đề sản phẩm")
-
+    .mb-3
+      label.form-label(for="product__category_id") Chọn danh mục cha
+      select.form-select(name="product__category_id", id="product__category_id")
+        option(value="") -- Chọn danh mục cha --
+        if categories
+          +select-tree(categories)
     .mb-3
       label.form-label(for="price") Giá sản phẩm:
       input.form-control(type="number" name="price" required min="0" step="0.01" placeholder="Nhập giá")
@@ -17,7 +22,7 @@ block content
       div( class="form-group" upload-image)
         label.form-label(for="thumbnail") Ảnh sản phẩm (URL):
         input.form-control(type="file" name="thumbnail" accept="image/*" upload-image-input)
-        img(src="", alt="" upload-image-preview style=" width: 150px; margin-top: 10px;") 
+        img(src="", alt="" upload-image-preview style=" width: 150px; margin-top: 10px;")
         button.btn.btn-danger.mt-2(type="button" upload-image-remove) Xóa ảnh
     .mb-3
       label.form-label(for="description") Mô tả :

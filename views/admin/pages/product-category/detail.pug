@@ -1,0 +1,40 @@
+extends ../../layout/default.pug
+include ../../mixins/select-tree.pug
+
+block content
+  h2.text-center.mb-4 Thông tin chi tiết danh mục
+
+  .container.p-4.border.rounded.shadow-sm
+    dl.row
+      dt.col-sm-3 Tên danh mục:
+      dd.col-sm-9 #{data.title}
+
+      dt.col-sm-3 Danh mục cha:
+      dd.col-sm-9
+        label.form-label(for="parent_id") Chọn danh mục cha
+        select.form-select(name="parent_id", id="parent_id" disabled)
+          option(value="") -- Chọn danh mục cha --
+          if categories
+            +select-tree(categories, 1, data.parent_id)
+      dt.col-sm-3 Mô tả:
+      dd.col-sm-9 #{data.description || 'Không có'}
+
+      dt.col-sm-3 Ảnh danh mục:
+      dd.col-sm-9
+        if data.thumbnail
+          img(src=data.thumbnail, alt="Ảnh danh mục", style="width: 150px; border-radius: 8px;")
+        else
+          span Không có ảnh
+
+      dt.col-sm-3 Trạng thái:
+      dd.col-sm-9 
+        if data.status === 'Active'
+          span.badge.bg-success Kích hoạt
+        else
+          span.badge.bg-secondary Không kích hoạt
+
+      dt.col-sm-3 Vị trí:
+      dd.col-sm-9 #{data.position}
+
+    .text-end.mt-4
+      a.btn.btn-secondary(href=`${prefixAdmin}/products-category`) Quay lại danh sách
