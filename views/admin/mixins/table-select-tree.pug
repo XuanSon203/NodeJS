@@ -14,7 +14,8 @@ mixin table-tree(productsCategory, level = 1)
         input(type="number", value=category.position, min="1", name="position")
       td
         a.btn.btn-dark.btn-sm(href=`${prefixAdmin}/products-category/detail/${category._id}`) Chi tiết
-        a.btn.btn-warning.btn-sm(href=`${prefixAdmin}/products-category/edit/${category._id}`) Sửa
+        if(role.permissions.includes("products-category_edit"))
+          a.btn.btn-warning.btn-sm(href=`${prefixAdmin}/products-category/edit/${category._id}`) Sửa
         form(
             action=`${prefixAdmin}/products-category/delete/${category._id}?_method=DELETE`
             method="POST"

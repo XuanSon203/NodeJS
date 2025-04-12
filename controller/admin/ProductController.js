@@ -4,7 +4,7 @@ const searchHelper = require("../../helper/seach");
 const paginationHelper = require("../../helper/pagination");
 const systemConfig = require("../../config/system");
 const createTreeHelper = require("../../helper/create-tree");
-
+const Account = require("../../model/AccountModel");
 module.exports.index = async (req, res) => {
   let find = {
     deleted: false,
@@ -37,11 +37,19 @@ module.exports.index = async (req, res) => {
     sort.position = "desc";
   }
   // End Pagination
+
   const products = await Product.find(find)
     .sort(sort)
     .limit(objectPagination.limitItem) // Giới hạn số lượng sản phẩm hiển thị trên 1 trang
     .skip(objectPagination.skip); // Bỏ qua các sản phẩm trang trước và tiến tới trang tiếp theo
-
+  for (const product of products) {
+    const user = await Account.findOne({
+      _id: product.createdBy.account_id,
+    });
+    if (user) {
+      product.accountFullName = user.fullName;
+    }
+  }
   res.render("admin/pages/products/index", {
     pageTitle: "Products",
     products,
@@ -113,7 +121,13 @@ module.exports.changeMulti = async (req, res) => {
       case "deleteAll":
         await Product.updateMany(
           { _id: { $in: objectIds } },
-          { deleted: true, deletedAt: new Date() }
+          {
+            deleted: true, // Lấy ra thônng tin người xóa
+            deletedBy: {
+              account_id: res.locals.user.id,
+              deletedAt: new Date(),
+            },
+          }
         );
         req.flash("success", `Xóa thành công ${ids.length} sản phẩm`);
 
@@ -157,7 +171,11 @@ module.exports.deleteItem = async (req, res) => {
       },
       {
         deleted: true,
-        deletedAt: new Date(),
+        // Lấy ra thônng tin người xóa
+        deletedBy: {
+          account_id: res.locals.user.id,
+          deletedAt: new Date(),
+        },
       }
     );
     req.flash("success", `Sản phẩm đã được xóa thành công`);
@@ -178,8 +196,6 @@ module.exports.create = async (req, res) => {
 };
 // Thêm sản phẩm Post
 module.exports.createPost = async (req, res) => {
-  // Kiểm tra nếu không có file được tải lên
-
   // Chuyển đổi giá trị số
   req.body.price = parseInt(req.body.price) || 0;
 
@@ -193,6 +209,10 @@ module.exports.createPost = async (req, res) => {
 
   // Tạo sản phẩm mới
   try {
+    // In ra thông tin người tạo và thời gian tạo của sản phẩm
+    req.body.createdBy = {
+      account_id: res.locals.user.id,
+    };
     const product = new Product(req.body);
     await product.save();
     res.redirect(`${systemConfig.prefixAdmin}/products`);

@@ -5,32 +5,40 @@ html
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css")
     link(rel="stylesheet", href="/admin/css/style.css")
   body
-    .wrapper.d-flex
-      // Sidebar
-      nav.sidebar.bg-dark
-        ul.list-unstyled
-          li
-            a.text-white(href=`/admin/dashboard`) Dashboard
-          li
-            a.text-white(href="/admin/products") Quản Lý Sản Phẩm
-          li
-            a.text-white(href="/admin/products-category") Quản Lý Danh Mục Sản Phẩm
-          li
-            a.text-white(href="/admin/roles") Quản Lý Nhóm Quyền
-          li
-            a.text-white(href="/admin/roles/permissions")  Phân Quyền
-          li
-            a.text-white(href="/admin/accounts")  Danh Sách Tài Khoản
+    div #{role.permissions}
+    if(role.permissions.length > 0)
+      .wrapper.d-flex
+        // Sidebar
+        nav.sidebar.bg-dark
+          ul.list-unstyled
+            li
+              a.text-white(href=`/admin/dashboard`) Dashboard
+           
+            if(role.permissions.includes("products-category_view"))
+              li
+                a.text-white(href="/admin/products") Quản Lý Sản Phẩm
+                //- Kiểm tra xem có quyền xem không 
+            if(role.permissions.includes("products-category_view"))
+              li
+                a.text-white(href="/admin/products-category") Quản Lý Danh Mục Sản Phẩm
+            if(role.permissions.includes("products-category_view"))
+              li
+                a.text-white(href="/admin/roles") Quản Lý Nhóm Quyền
+            li
+              a.text-white(href="/admin/roles/permissions")  Phân Quyền
+            li
+              a.text-white(href="/admin/accounts")  Danh Sách Tài Khoản
 
-      
-      // Main Content
-      .main-content
-        header.bg-light.p-3.d-flex.justify-content-between
-          h5 Chào mừng đến với trang Quản Trị
-          a.btn.btn-danger(href=`${prefixAdmin}/auth/logout`) Đăng xuất
-        .content.p-4
-          block content
-
+        
+        // Main Content
+        .main-content
+          header.bg-light.p-3.d-flex.justify-content-between
+            h5 Chào mừng đến với trang Quản Trị
+            a.btn.btn-danger(href=`${prefixAdmin}/auth/logout`) Đăng xuất
+          .content.p-4
+            block content
+    else 
+      h1 Bạn không có quyền truy cập
     script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js") // ✅ Đã sửa từ "boostrap" thành "Bootstrap"
     //- Tinymce
     script(src="/tinymce/tinymce.min.js")

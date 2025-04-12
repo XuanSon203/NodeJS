@@ -37,7 +37,7 @@ module.exports.createPost = async (req, res) => {
   } else {
     const records = new Account(req.body);
     await records.save();
-    res.render("admin/pages/accounts/index");
+    res.redirect("/admin/accounts");
   }
 };
 // Get

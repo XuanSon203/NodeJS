@@ -5,21 +5,25 @@ include ../../mixins/table-select-tree.pug
 
 block content
   +alert-success("5000")
+  if(role.permissions.length > 0)
+    if(role.permissions.includes("products-category_view"))
+      .d-flex.justify-content-between.align-items-center.mb-4
+        h3 Danh Sách Danh Mục Sản Phẩm
+        if(role.permissions.includes("products-category_add"))
+          a.btn.btn-primary(href=`${prefixAdmin}/products-category/create`)
+            i.bi.bi-plus-circle.me-1
+            | Thêm Danh Mục
 
-  .d-flex.justify-content-between.align-items-center.mb-4
-    h3 Danh Sách Danh Mục Sản Phẩm
-    a.btn.btn-primary(href=`${prefixAdmin}/products-category/create`)
-      i.bi.bi-plus-circle.me-1
-      | Thêm Danh Mục
-
-  table.table.table-bordered
-    thead
-      tr
-        th STT
-        th Tên Danh Mục
-        th Ảnh
-        th Mô Tả
-        th Vị Trí
-        th Hành Động
-    tbody
-      +table-tree(productsCategory)
+      table.table.table-bordered
+        thead
+          tr
+            th STT
+            th Tên Danh Mục
+            th Ảnh
+            th Mô Tả
+            th Vị Trí
+            th Hành Động
+        tbody
+          +table-tree(productsCategory)
+    else
+      h1 Bạn không có quyền 
