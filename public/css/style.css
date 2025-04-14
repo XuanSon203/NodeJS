@@ -67,3 +67,55 @@ h5 {
 .btn-custom:hover {
   background-color: #0056b3;
 }
+/* Style cho ul chính của dropdown */
+.dropdown-menu > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style cho li cấp đầu tiên trong dropdown */
+.dropdown-menu > ul > li > a {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333; /* Màu chữ mặc định */
+}
+
+/* Style khi hover vào li cấp đầu tiên */
+.dropdown-menu > ul > li > a:hover {
+  background-color: #f8f9fa; /* Màu nền khi hover */
+}
+
+/* Style cho ul cấp con (submenu) */
+.dropdown-menu > ul > li > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff; /* Màu nền submenu */
+  border-left: 1px solid #eee; /* Đường viền bên trái submenu */
+  position: absolute; /* Để submenu hiển thị bên cạnh hoặc dưới */
+  top: 0;
+  left: 100%; /* Hiển thị submenu bên phải của item cha */
+  z-index: 1001; /* Đảm bảo submenu nằm trên các phần tử khác */
+  display: none; /* Ẩn submenu mặc định */
+}
+
+/* Style cho li trong submenu */
+.dropdown-menu > ul > li > ul > li > a {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  text-decoration: none;
+  color: #555; /* Màu chữ submenu */
+  font-size: 0.9rem; /* Kích thước chữ submenu nhỏ hơn */
+}
+
+/* Style khi hover vào li trong submenu */
+.dropdown-menu > ul > li > ul > li > a:hover {
+  background-color: #e9ecef; /* Màu nền hover submenu */
+}
+
+/* Hiển thị submenu khi hover vào li cha có submenu */
+.dropdown-menu > ul > li:hover > ul {
+  display: block;
+}

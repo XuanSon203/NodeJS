@@ -19,6 +19,14 @@ block content
         if categories
           +select-tree(categories,1,product.product__category_id)
     .mb-3
+      div
+        input.form-check-input(type="radio" id="featured1" name="featured" value="1" checked=(product.featured == "1"))
+        label.form-check-label(for="featured1") Nổi bật
+
+        input.form-check-input(type="radio" id="featured2" name="featured" value="0" checked=(product.featured == "0"))
+        label.form-check-label(for="featured2") Không
+
+    .mb-3
       label.form-label(for="price") Giá sản phẩm:
       input.form-control(type="number" name="price" required min="0" step="0.01" placeholder="Nhập giá" value=product.price)
 

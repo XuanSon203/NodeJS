@@ -5,12 +5,10 @@ module.exports.createTree = function (arr, parentId = "", countObj = { value: 0 
       countObj.value++;
       const newItem = { ...item._doc };
       newItem.index = countObj.value;
-
       const children = module.exports.createTree(arr, item.id, countObj);
       if (children.length > 0) {
         newItem.children = children;
       }
-
       tree.push(newItem);
     }
   });

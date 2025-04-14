@@ -1,16 +1,23 @@
+include ../mixins/sub-menu.pug
 header
   nav.navbar.navbar-expand-lg.navbar-light.bg-light
     .container
       a.navbar-brand(href="/") MyWebsite
-      button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav")
+      button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
         span.navbar-toggler-icon
       #navbarNav.collapse.navbar-collapse
+        .inner-menu
         ul.navbar-nav.ms-auto
           li.nav-item
-            a.nav-link(href="/") Home
-          li.nav-item
-            a.nav-link(href="/products") Products
+            a.nav-link(href="/home") Home
+
+          // Menu Dropdown đa cấp
+          ul.nav-item.sub-menu
+            -const pathProduct ="/products"
+            a(href=pathProduct) Sản phẩm
+              +sub-menu(productsCategory,pathProduct)
+          
+
           li.nav-item
             a.nav-link(href="/contact") Contact
-          li.nav-item
-            a.nav-link.btn.btn-primary.text-white(href="/signup") Sign Up
+            
