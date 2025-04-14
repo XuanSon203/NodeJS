@@ -101,7 +101,6 @@ const showAlert = document.querySelector("#show-alert");
 const closeAlert = document.querySelector("#close-alert");
 if (showAlert) {
   const time = parseInt(showAlert.getAttribute("data-time"));
-  console.log(time);
   setTimeout(() => {
     showAlert.classList.add("alert-hidden");
   }, time);
@@ -131,7 +130,6 @@ if (uploadImage) {
 const sort = document.querySelector("[sort]");
 if (sort) {
   let url = new URL(location.href);
-  console.log(url);
   const sortSelect = sort.querySelector("[sort-select]");
   const sortClear = sort.querySelector("[sort-clear]");
   sortSelect.addEventListener("change", (e) => {

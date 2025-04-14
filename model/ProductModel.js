@@ -14,8 +14,17 @@ const productSchema = new Schema(
         default: Date.now,
       },
     },
-    price: { type: Number, required: true },
-    thumbnail: { type: String, required: true },
+    updatedBy:[
+      {
+        account_id: String,
+        updatedAt: {
+          type: String,
+          default: Date.now,
+        },
+      },
+    ],
+    price: { type: Number, },
+    thumbnail: { type: String,  },
     status: { type: String, default: "Active" },
     deleted: { type: Boolean, default: false },
     deletedBy: {

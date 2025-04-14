@@ -46,6 +46,7 @@ block content
         th Vị trí
         th Trạng Thái
         th Người tạo 
+        th Người cập nhật
         th Hành Động
 
     tbody
@@ -71,6 +72,11 @@ block content
             p #{product.accountFullName }
             if(product.createdAt)
               p #{product.createdAt.toLocaleString('vi-VN')}
+          td 
+            - let updatedBy = product.updatedBy[product.updatedBy.length - 1]
+            p #{updatedBy.accountFullName }
+            if(updatedBy.updatedAt)
+              p #{updatedBy.updatedAt.toLocaleString('vi-VN')}
           
           td
             div.d-flex.gap-2
