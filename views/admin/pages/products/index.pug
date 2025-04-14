@@ -73,11 +73,13 @@ block content
             if(product.createdAt)
               p #{product.createdAt.toLocaleString('vi-VN')}
           td 
-            - let updatedBy = product.updatedBy[product.updatedBy.length - 1]
-            p #{updatedBy.accountFullName }
-            if(updatedBy.updatedAt)
-              p #{updatedBy.updatedAt.toLocaleString('vi-VN')}
-          
+            - var updatedBy = product.updatedBy[product.updatedBy.length - 1]
+            if updatedBy
+                  p #{updatedBy.accountFullName}
+                  if updatedBy.updatedAt
+                    p #{updatedBy.updatedAt.toLocaleString('vi-VN')}
+
+              
           td
             div.d-flex.gap-2
               a.btn.btn-primary.btn-sm(href=`${prefixAdmin}/products/detail/${product._id}`)
