@@ -1,0 +1,41 @@
+extends ../layout/default.pug
+include ../mixins/alert.pug
+
+block main
+  +alert-success(5000)
+  .container.mt-5
+    h2.mb-4 Giỏ hàng của bạn
+
+    table.table.table-bordered.table-hover
+      thead
+        tr
+          th STT
+          th Ảnh
+          th Tên
+          th Giá
+          th Số lượng
+          th Tổng tiền
+          th Hành động
+      tbody
+      if(cart.products.length > 0)
+        each item, index in cart.products
+          tr
+            td #{index+ 1}
+            td 
+              img(src=item.productInfo.thumbnail, alt="Tên sản phẩm", width="80")
+            td 
+              a(href=`/products/${item.productInfo.slug}`) #{item.productInfo.title} 
+            td #{item.productInfo.priceNew}
+            td
+              form(action="#", method="post")
+                input(type="number", name="quantity", value=item.quantity, min="1", product_id=item.product_id  class="form-control", style="width: 80px; display: inline-block;")
+            td #{item.totalPrice}
+            td
+              a.btn.btn-sm.btn-danger(href=`/cart/delete/${item.product_id}`) Xóa
+      else 
+        p Không có sản phẩm nào trong giỏ hàng
+    .text-end.mt-3
+      h4 Tổng cộng: #{cart.totalPrice}
+        span.text-danger.ms-2
+
+      a.btn.btn-success.mt-2(href="#") Thanh toán

@@ -25,4 +25,6 @@ header
               +sub-menu(productsCategory, pathProduct)
 
           li.nav-item
+            a.nav-link(href="/cart") Cart (#{miniCart ? miniCart.totalQuantity : 0})
+          li.nav-item
             a.nav-link(href="/contact") Contact
