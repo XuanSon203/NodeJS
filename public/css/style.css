@@ -119,3 +119,31 @@ h5 {
 .dropdown-menu > ul > li:hover > ul {
   display: block;
 }
+.alert-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#show-alert {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #b8daff;
+  color: #004085;
+  background-color: #cce5ff;
+  position: relative;
+  border-radius: 4px;
+}
+
+#close-alert {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  color: #004085;
+}
+
+#show-alert.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}

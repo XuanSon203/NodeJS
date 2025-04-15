@@ -1,7 +1,7 @@
 extends ../layout/default.pug
-
+include ../mixins/alert.pug
 block main
-
+  +alert-success(5000)
   h2.text-center.mb-4 Chi Tiết Sản Phẩm
 
   .container.p-5
@@ -13,18 +13,25 @@ block main
         .row
           .col-md-6
             .mb-3
-              label.form-label(for="title") Tiêu đề sản phẩm:
-              p.form-control-static #{product.title}
+              label.form-label Tiêu đề sản phẩm:
+              p.form-control-plaintext= product.title
           
           .col-md-6
             .mb-3
-              label.form-label(for="price") Giá sản phẩm:
-              p.form-control-static #{product.price.toLocaleString()} VND
+              label.form-label Giá sản phẩm:
+              p.form-control-plaintext #{product.price.toLocaleString ? product.price.toLocaleString() : product.price} VND
 
         .mb-3
-          label.form-label(for="thumbnail") Ảnh sản phẩm:
-          img(src=product.thumbnail, alt="Ảnh sản phẩm", class="img-fluid rounded" style="max-width: 300px;")
-    //- Nút mua sản phẩm
+          label.form-label Ảnh sản phẩm:
+          img.img-fluid.rounded(style="max-width: 300px;" src=product.thumbnail alt="Ảnh sản phẩm")
+        
+        
+
     .d-flex.justify-content-between.mt-4
-      a.btn.btn-success(href=`/cart/add/${product._id}`) Mua ngay
-      a.btn.btn-outline-primary(href=`/products`) Quay lại danh sách sản phẩm
+      // Nút thêm vào giỏ hàng
+      form(action=`/cart/add/${product._id}`, method="POST")
+        input.form-control.m-2(type="number" name="quantity" value="1" min="1")
+        button.btn.btn-success(type="submit") Thêm vào giỏ hàng
+
+      // Nút quay lại
+      a.btn.btn-outline-primary(href="/products") Quay lại danh sách sản phẩm

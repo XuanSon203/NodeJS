@@ -1,23 +1,28 @@
 include ../mixins/sub-menu.pug
+
 header
   nav.navbar.navbar-expand-lg.navbar-light.bg-light
     .container
       a.navbar-brand(href="/") MyWebsite
       button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
         span.navbar-toggler-icon
+
+      // Form tìm kiếm (đặt ở góc phải trước nav-items)
+      form.d-flex(action="/search", method="GET")
+        input.form-control.me-2(type="search", placeholder="Tìm kiếm...", name="keyword", aria-label="Search" value =keyword)
+        button.btn.btn-outline-success(type="submit") Tìm kiếm
+
       #navbarNav.collapse.navbar-collapse
-        .inner-menu
         ul.navbar-nav.ms-auto
           li.nav-item
             a.nav-link(href="/home") Home
 
           // Menu Dropdown đa cấp
-          ul.nav-item.sub-menu
-            -const pathProduct ="/products"
-            a(href=pathProduct) Sản phẩm
-              +sub-menu(productsCategory,pathProduct)
-          
+          li.nav-item.dropdown
+            - const pathProduct = "/products"
+            a.nav-link(href=pathProduct, role="button", data-bs-toggle="dropdown", aria-expanded="false") Sản phẩm
+            ul.dropdown-menu
+              +sub-menu(productsCategory, pathProduct)
 
           li.nav-item
             a.nav-link(href="/contact") Contact
-            
