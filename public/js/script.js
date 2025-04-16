@@ -19,7 +19,7 @@ if (inputsQuantity.length > 0) {
 
       console.log(productId);
       const quantity = parseInt(e.target.value);
-      if (quantity > 1) {
+      if (quantity => 1) {
         location.href = `/cart/update/${productId}/${quantity}`;
       }
     });
