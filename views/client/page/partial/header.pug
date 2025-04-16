@@ -28,3 +28,11 @@ header
             a.nav-link(href="/cart") Cart (#{miniCart ? miniCart.totalQuantity : 0})
           li.nav-item
             a.nav-link(href="/contact") Contact
+          if(user)
+            li.nav-item
+              a.nav-link(href="/user/logout") Logout
+          else
+            li.nav-item
+              a.nav-link(href="/user/register") Register
+            li.nav-item
+              a.nav-link(href="/user/login") Login
