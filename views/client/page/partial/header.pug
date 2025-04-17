@@ -29,6 +29,9 @@ header
           li.nav-item
             a.nav-link(href="/contact") Contact
           if(user)
+
+            li.nav-item
+              a.nav-link(href="/user/info") #{user.fullName}
             li.nav-item
               a.nav-link(href="/user/logout") Logout
           else
