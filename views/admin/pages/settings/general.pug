@@ -1,0 +1,41 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+
+block content
+  +alert-error("5000")
+  +alert-success("5000")
+  
+  .container.mt-5
+    h2.text-center.mb-4.text-primary Cài đặt Website
+
+    form(action=`${prefixAdmin}/settings/general?_method=PATCH` method="POST" enctype="multipart/form-data" class="mx-auto col-md-8 shadow p-4 rounded bg-light")
+      
+      .mb-3
+        label.form-label(for="websiteName") Tên Website:
+        input#websiteName.form-control(type="text" name="websiteName" value=(settingGeneral ? settingGeneral.websiteName : ''))
+
+      .mb-3
+        div( class="form-group" upload-image)
+          label.form-label(for="logo") Ảnh sản phẩm (URL):
+          input.form-control(type="file" name="logo" accept="image/*" upload-image-input)
+          img(src=(settingGeneral ? settingGeneral.logo : '') alt="" upload-image-preview style=" width: 150px; margin-top: 10px;")
+          button.btn.btn-danger.mt-2(type="button" upload-image-remove) Xóa ảnh
+
+      .mb-3
+        label.form-label(for="phone") Số điện thoại:
+        input#phone.form-control(type="text" name="phone" value=(settingGeneral ? settingGeneral.phone : ''))
+
+      .mb-3
+        label.form-label(for="email") Email:
+        input#email.form-control(type="email", name="email", value=(settingGeneral ? settingGeneral.email : ''))
+
+      .mb-3
+        label.form-label(for="address") Địa chỉ:
+        input#address.form-control(type="text", name="address" value=(settingGeneral ? settingGeneral.address : ''))
+
+      .mb-3
+        label.form-label(for="copyright") Bản quyền:
+        input#copyright.form-control(type="text", name="copyright" value=(settingGeneral ? settingGeneral.copyright : ''))
+
+      .text-center
+        button.btn.btn-primary(type="submit") 💾 Lưu cài đặt
